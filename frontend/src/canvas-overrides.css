@@ -1,0 +1,379 @@
+/* Base Node */
+.react-flow__minimap-node {
+  stroke: none !important;
+  opacity: 0.25;
+  rx: 4;
+}
+
+.react-flow__node {
+  height: auto !important;
+}
+
+.base-node {
+  position: relative;
+  width: 100%;
+  min-width: 280px;
+  max-width: 600px;
+  background: var(--color-card);
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 8px var(--color-shadow),
+    0 8px 24px var(--color-shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.base-node:hover {
+  border-color: var(--color-edge-hover);
+  box-shadow:
+    0 4px 16px var(--color-shadow),
+    0 12px 40px var(--color-shadow-lg);
+}
+
+.react-flow__node.selected .base-node {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.3),
+    0 0 24px rgba(99, 102, 241, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.node-accent {
+  height: 3px;
+  width: 100%;
+  border-radius: 13px 13px 0 0;
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
+.node-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.node-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-content);
+  letter-spacing: 0.01em;
+}
+
+.node-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.node-action-btn {
+  background: none;
+  border: none;
+  color: var(--color-dim);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.node-action-btn:hover {
+  color: var(--color-content);
+  background: var(--color-edge);
+}
+
+.node-action-btn.delete:hover {
+  color: var(--color-danger);
+  background: rgba(244, 63, 94, 0.1);
+}
+
+.node-action-btn.info::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: -10px;
+  background: var(--color-elevated);
+  border: 1px solid var(--color-edge);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--color-content);
+  white-space: pre-wrap;
+  width: max-content;
+  max-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.node-action-btn.info:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.node-handles-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 6px 16px;
+  gap: 12px;
+  border-top: 1px solid var(--color-edge);
+  border-bottom: 1px solid var(--color-edge);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.node-handles-left,
+.node-handles-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.node-handles-right {
+  align-items: flex-end;
+}
+
+.node-handle-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 0;
+  color: var(--color-dim);
+  letter-spacing: 0.02em;
+}
+
+.node-handle-tag .tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.input-tag .tag-dot {
+  background: var(--color-primary);
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.4);
+}
+
+.output-tag .tag-dot {
+  background: var(--color-success);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+}
+
+.node-body {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.node-body::-webkit-scrollbar {
+  width: 6px;
+}
+.node-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.node-body::-webkit-scrollbar-thumb {
+  background: var(--color-edge);
+  border-radius: 3px;
+}
+.node-body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dim);
+}
+
+.node-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.node-field-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.node-field-input {
+  background: var(--color-base);
+  border: 1px solid var(--color-edge);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  color: var(--color-content);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.node-field-input:focus {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.node-field-input::placeholder {
+  color: var(--color-dim);
+}
+
+select.node-field-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+.node-field-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.node-field-slider-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 2px 10px;
+  border-radius: 6px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.node-field-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to right, rgba(99, 102, 241, 0.3), var(--color-edge));
+  outline: none;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.node-field-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-card);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.3);
+}
+
+.node-field-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+.handle-dot {
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid var(--color-card) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease !important;
+  z-index: 10 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.handle-dot:hover {
+  transform: scale(1.4) !important;
+}
+
+.handle-input {
+  background: var(--color-surface) !important;
+  border-color: var(--color-primary) !important;
+  border-radius: 50% !important;
+}
+
+.handle-input:hover {
+  background: rgba(99, 102, 241, 0.2) !important;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5) !important;
+}
+
+.handle-output {
+  background: var(--color-success) !important;
+  border-color: var(--color-card) !important;
+  border-radius: 2px !important;
+  transform: rotate(45deg) !important;
+}
+
+.handle-output:hover {
+  transform: rotate(45deg) scale(1.4) !important;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6) !important;
+}
+
+.edge-delete-btn {
+  background: var(--color-danger);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.5);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.edge-delete-btn:hover {
+  transform: scale(1.15);
+  background: #e11d48;
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-primary) !important;
+  stroke-width: 3 !important;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.5));
+  transition: stroke 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--color-primary) !important;
+  stroke-width: 4 !important;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.8));
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5 !important;
+}
+
+.react-flow__connection-line {
+  stroke: var(--color-primary) !important;
+  stroke-width: 2 !important;
+}
