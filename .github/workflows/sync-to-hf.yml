@@ -21,6 +21,6 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "GitHub Actions"
 
-          git remote add hf https://akshaypal-bishnoi:$HF_TOKEN@huggingface.co/spaces/akshay-20-9-e/FlowGraphs-engine
+          git remote add hf https://akshay-20-9-e:$HF_TOKEN@huggingface.co/spaces/akshay-20-9-e/FlowGraphs-engine
 
           git push hf main --force
