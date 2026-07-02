@@ -14,3 +14,5 @@ langchain-community>=0.2.19
 tavily-python>=0.3.0
 langgraph-checkpoint>=1.0.0
 langchain-core>=0.2.43
+mcp>=1.0.0
+langchain_mcp_adapters>=1.0.0
