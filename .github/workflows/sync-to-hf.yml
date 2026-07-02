@@ -22,5 +22,5 @@ jobs:
           git config --global user.name "GitHub Actions"
 
           git remote add hf https://akshay-20-9-e:$HF_TOKEN@huggingface.co/spaces/akshay-20-9-e/FlowGraphs-engine
-
-          git push hf main --force
+          git subtree split --prefix engine -b hf-deploy
+          git push hf hf-deploy:main --force
