@@ -16,7 +16,7 @@ async def execute_llm(node: dict, inputs: dict) -> dict:
     # Instantiate the model. We can allow temperature and model selection in the future.
     llm = ChatOpenAI(
         api_key=os.environ.get("OPENAI_API_KEY"),
-        model="gpt-3.5-turbo", 
+        model="gpt-4o-mini", 
         temperature=0.7
     )
     
@@ -109,7 +109,7 @@ async def execute_agent(node: dict, inputs: dict) -> dict:
         
     llm = ChatOpenAI(
         api_key=os.environ.get("OPENAI_API_KEY"),
-        model="gpt-3.5-turbo", 
+        model="gpt-4o-mini", 
         temperature=0
     )
     
