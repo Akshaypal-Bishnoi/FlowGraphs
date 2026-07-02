@@ -9,7 +9,7 @@ import { createClient } from 'redis';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
