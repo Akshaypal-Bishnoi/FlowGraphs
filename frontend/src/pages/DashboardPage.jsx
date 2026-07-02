@@ -4,6 +4,7 @@ import { Plus, Settings, FolderOpen, Play, ArrowLeft, Trash2, LogOut, Users, Hea
 import { useAuthStore } from '../store/authStore';
 import { usePipelineStore } from '../store/pipelineStore';
 import { templates } from '../data/templates';
+import api from '../utils/api';
 
 export const DashboardPage = () => {
   const [pipelines, setPipelines] = useState([]);
@@ -17,26 +18,19 @@ export const DashboardPage = () => {
     navigate('/auth');
   };
 
-  const fetchPipelines = () => {
+  const fetchPipelines = async () => {
     if (!token) {
       navigate('/auth');
       return;
     }
-    fetch('http://localhost:3000/api/pipelines', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch');
-        return res.json();
-      })
-      .then(data => {
-        setPipelines(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+    try {
+      const res = await api.get('/api/pipelines');
+      setPipelines(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -48,10 +42,7 @@ export const DashboardPage = () => {
     if (!confirm('Are you sure you want to delete this pipeline?')) return;
     
     try {
-      await fetch(`http://localhost:3000/api/pipelines/${id}`, { 
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      await api.delete(`/api/pipelines/${id}`);
       fetchPipelines(); // refresh list
     } catch (err) {
       console.error("Failed to delete", err);

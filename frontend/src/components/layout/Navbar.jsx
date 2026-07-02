@@ -3,6 +3,7 @@ import { useUIStore } from '../../store/uiStore';
 import { usePipelineStore } from '../../store/pipelineStore';
 import { Play, Save, Sun, Moon, Home, LayoutDashboard, Menu, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../../utils/api';
 
 export const Navbar = () => {
   const { theme, toggleTheme, sidebarOpen, setSidebarOpen } = useUIStore();
@@ -28,17 +29,8 @@ export const Navbar = () => {
     nodes.forEach(n => updateNodeField(n.id, 'executionStatus', 'PENDING'));
 
     try {
-      const token = localStorage.getItem('flowgraphs_token');
-      const res = await fetch('http://localhost:3000/api/pipelines/execute', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          ...(token && { 'Authorization': `Bearer ${token}` })
-        },
-        body: JSON.stringify({ nodes, edges })
-      });
-      const data = await res.json();
-      console.log('Gateway response:', data);
+      const res = await api.post('/api/pipelines/execute', { nodes, edges });
+      console.log('Gateway response:', res.data);
     } catch (e) {
       console.error('Execution failed:', e);
     } finally {

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { addEdge, applyNodeChanges, applyEdgeChanges, MarkerType } from 'reactflow';
+import api from '../utils/api';
 
 export const usePipelineStore = create((set, get) => ({
   nodes: [],
@@ -122,23 +123,14 @@ export const usePipelineStore = create((set, get) => ({
       };
       
       const url = state.currentPipelineId 
-        ? `http://localhost:3000/api/pipelines/${state.currentPipelineId}`
-        : `http://localhost:3000/api/pipelines`;
+        ? `/api/pipelines/${state.currentPipelineId}`
+        : `/api/pipelines`;
       
-      const method = state.currentPipelineId ? 'PUT' : 'POST';
+      const res = state.currentPipelineId 
+        ? await api.put(url, payload)
+        : await api.post(url, payload);
       
-      const token = localStorage.getItem('flowgraphs_token');
-      const res = await fetch(url, {
-        method,
-        headers: { 
-          'Content-Type': 'application/json',
-          ...(token && { 'Authorization': `Bearer ${token}` })
-        },
-        body: JSON.stringify(payload)
-      });
-      
-      if (!res.ok) throw new Error('Failed to save pipeline');
-      const data = await res.json();
+      const data = res.data;
       
       set({ currentPipelineId: data.id, pipelineName: data.name });
       return data;
@@ -152,12 +144,8 @@ export const usePipelineStore = create((set, get) => ({
 
   loadPipeline: async (id) => {
     try {
-      const token = localStorage.getItem('flowgraphs_token');
-      const res = await fetch(`http://localhost:3000/api/pipelines/${id}`, {
-        headers: { ...(token && { 'Authorization': `Bearer ${token}` }) }
-      });
-      if (!res.ok) throw new Error('Failed to load pipeline');
-      const data = await res.json();
+      const res = await api.get(`/api/pipelines/${id}`);
+      const data = res.data;
       
       set({
         currentPipelineId: data.id,
