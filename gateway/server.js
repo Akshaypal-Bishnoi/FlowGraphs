@@ -21,6 +21,12 @@ const io = new Server(httpServer, {
   }
 });
 
+io.on('connection', (socket) => {
+  socket.on('join_execution', (executionId) => {
+    socket.join(executionId);
+  });
+});
+
 app.use(cors());
 app.use(express.json());
 
