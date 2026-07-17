@@ -60,9 +60,7 @@ async def execute_custom(node: dict, inputs: dict) -> dict:
     val = inputs.get("value", node.get("data", {}).get("value", ""))
     return {"value": val}
 
-# ---------------------------------------------------------
 # BUILT-IN TOOLS FOR AGENT
-# ---------------------------------------------------------
 @tool
 def get_weather(location: str) -> str:
     """Call this tool to get the current weather for a specific location."""

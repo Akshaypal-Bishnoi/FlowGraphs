@@ -8,7 +8,7 @@ import { EditorPage } from './pages/EditorPage'
 import { useUIStore } from './store/uiStore'
 import { usePipelineStore } from './store/pipelineStore'
 
-const socket = io(import.meta.env.VITE_API_URL);
+export const socket = io(import.meta.env.VITE_API_URL);
 
 function App() {
   const theme = useUIStore((state) => state.theme);

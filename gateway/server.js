@@ -44,8 +44,8 @@ redisSubscriber.on('error', err => console.error('Redis Client Error', err));
   await redisSubscriber.subscribe('pipeline_updates', (message) => {
     try {
       const data = JSON.parse(message);
-      // Broadcast execution updates to all connected frontend clients
-      io.emit('execution_update', data);
+      // Broadcast execution updates ONLY to the specific user/room
+      io.to(data.execution_id).emit('execution_update', data);
     } catch (e) {
       console.error('Error parsing redis message', e);
     }
@@ -218,7 +218,7 @@ app.post('/api/pipelines/execute', authenticateToken, async (req, res) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        execution_id: `exec_${Date.now()}`,
+        execution_id: req.body.execution_id || `exec_${Date.now()}`,
         nodes: req.body.nodes,
         edges: req.body.edges
       })

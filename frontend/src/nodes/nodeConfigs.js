@@ -124,9 +124,7 @@ export const nodeConfigs = {
     getDefaults: () => ({ duration: 5, unit: 's' }),
   },
 
-  // ---------------------------------------------------------
-  // NEW NODES (From Advanced Implementation Plan)
-  // ---------------------------------------------------------
+  // some advanced node.
   
   ragQuery: {
     label: 'RAG Query',

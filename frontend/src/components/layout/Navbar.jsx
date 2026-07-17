@@ -4,6 +4,7 @@ import { usePipelineStore } from '../../store/pipelineStore';
 import { Play, Save, Sun, Moon, Home, LayoutDashboard, Menu, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
+import { socket } from '../../App';
 
 export const Navbar = () => {
   const { theme, toggleTheme, sidebarOpen, setSidebarOpen } = useUIStore();
@@ -25,11 +26,14 @@ export const Navbar = () => {
   const executePipeline = async () => {
     setIsExecuting(true);
     
+    const executionId = crypto.randomUUID();
+    socket.emit('join_execution', executionId);
+    
     // Reset all nodes to PENDING status before execution
     nodes.forEach(n => updateNodeField(n.id, 'executionStatus', 'PENDING'));
 
     try {
-      const res = await api.post('/api/pipelines/execute', { nodes, edges });
+      const res = await api.post('/api/pipelines/execute', { execution_id: executionId, nodes, edges });
       console.log('Gateway response:', res.data);
     } catch (e) {
       console.error('Execution failed:', e);

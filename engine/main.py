@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from collections import defaultdict, deque
 import asyncio
 from dotenv import load_dotenv
@@ -35,6 +35,7 @@ app.add_middleware(
 )
 
 class Pipeline(BaseModel):
+    execution_id: Optional[str] = None
     nodes: List[Dict[str, Any]]
     edges: List[Dict[str, Any]]
 
